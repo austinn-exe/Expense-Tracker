@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+    body
+    {
+        background-color: #ede9fe;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    #container
+    {
+        background-color: whitesmoke;
+        margin: auto;
+        width: 70vw;
+        margin: 60px auto;
+        border-radius: 22px;
+        padding: 30px;
+        max-width: 900px;
+
+        display:grid;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: repeat(5,auto);
+        gap:20px;
+    }
+    h1
+    {
+        grid-column: 1/6;
+        text-align: center;
+        color: #4c1d95;
+        background-color: white;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 20px;
+    }
+    #total
+    {
+        grid-column: 1/6;
+        text-align: center;
+        color: #4c1d95;
+        background-color: white;
+        padding: 20px;
+        font-size: 22px;
+        border-radius: 18px;
+        font-weight: bold;
+
+    }
+    #add
+    {
+        grid-area: 3/1/6/3;
+        background-color: white;
+        padding: 20px;
+        border-radius: 18px;
+    }
+    input
+    {
+        width: 90%;
+        padding: 12px;
+        margin-top: 10px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: 0;
+        background-color: #f3f4f6;
+        outline: 0;
+
+    }
+    button
+    {
+        width: 90%;
+        padding: 12px;
+        margin-top: 10px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: 0;
+        background-color: #aa71ff;
+        color: white;
+        font-weight: bold;
+        width: 95%;
+    }
+    #list
+    {
+        grid-area :3/3/6/6;
+        background-color: white;
+        padding: 20px;
+        border-radius: 18px;
+    }
+    ul
+    {
+        list-style: none;
+        padding: 0; 
+        margin-top: 10px;
+    }
+    li
+    {
+        background-color: #f5f3ff;
+        padding: 10px 14px;
+        margin: 15px 0px;
+        border-radius: 12px;
+    }
+</style>
+</head>
+<body>
+    <div id = "container">
+        <h1>Expense Tracker</h1>
+        <div id = "total">
+            Total Expense : ₹ 0
+        </div>
+        <div id ="add">
+            <h3>Add Expense</h3>
+            <input placeholder="Expense" id = "text" type = "text"/>
+            <input placeholder="Amount" id = "number" type = "number"/>
+            <button onclick="addTotal()">Add Expense</button>
+        </div>
+        <div id = "list">
+            <h3>Expense List</h3>
+            <ul id = "empty">
+                
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let total = 0;
+        let numberbox = document.getElementById("number");
+        let textbox = document.getElementById("text");
+        let totaltext = document.getElementById("total");
+        let list = document.getElementById("empty");
+
+        function addTotal()
+        {
+            let s1 = textbox.value;
+            let n1 = Number(numberbox.value);
+
+            let element  = document.createElement("li");
+            element.innerText = s1+ ": ₹ "+n1;
+            list.appendChild(element);
+
+            current = Number(numberbox.value);
+            total = total + current;
+            console.log(total);
+            totaltext.innerText = "Total Expense : ₹ "+total;
+            numberbox.value = "";
+            textbox.value = "";
+        }
+        
+
+    
+
+
+    </script>
+</body>
+</html>
