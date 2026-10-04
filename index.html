@@ -94,11 +94,28 @@
     }
     li
     {
-        background-color: #f5f3ff;
-        padding: 10px 14px;
-        margin: 15px 0px;
-        border-radius: 12px;
+    background-color: #f5f3ff;
+    padding: 10px 14px;
+    margin: 15px 0px;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     }
+    .delete-btn
+{
+    width: auto;
+    margin: 0;
+    padding: 6px 12px;
+    background-color: #ef4444;
+    cursor: pointer;
+}
+
+.delete-btn:hover
+{
+    background-color: #dc2626;
+}
 </style>
 </head>
 <body>
@@ -121,7 +138,7 @@
         </div>
     </div>
 
-    <script>
+<script>
     let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
     let numberbox = document.getElementById("number");
@@ -129,24 +146,39 @@
     let totaltext = document.getElementById("total");
     let list = document.getElementById("empty");
 
-    function displayExpenses() {
-        list.innerHTML = "";
 
-        let total = 0;
+function displayExpenses() {
+    list.innerHTML = "";
 
-        expenses.forEach(function(expense) {
+    let total = 0;
 
-            let element = document.createElement("li");
+    expenses.forEach(function(expense, index) {
 
-            element.innerText = expense.name + ": ₹ " + expense.amount;
+        let element = document.createElement("li");
 
-            list.appendChild(element);
+        let expenseText = document.createElement("span");
+        expenseText.innerText = expense.name + ": ₹ " + expense.amount;
 
-            total = total + expense.amount;
-        });
+        let deleteButton = document.createElement("button");
+        deleteButton.innerText = "Delete";
+        deleteButton.classList.add("delete-btn");
 
-        totaltext.innerText = "Total Expense : ₹ " + total;
-    }
+        deleteButton.onclick = function() {
+            deleteExpense(index);
+        };
+
+        element.appendChild(expenseText);
+        element.appendChild(deleteButton);
+
+        list.appendChild(element);
+
+        total = total + expense.amount;
+    });
+
+    totaltext.innerText = "Total Expense : ₹ " + total;
+}
+
+
 
     function addTotal() {
 
@@ -173,7 +205,18 @@
         displayExpenses();
     }
 
+    function deleteExpense(index) {
+
+        expenses.splice(index, 1);
+
+        localStorage.setItem("expenses", JSON.stringify(expenses));
+
+        displayExpenses();
+    }
+
     displayExpenses();
 </script>
+
+
 </body>
 </html>
